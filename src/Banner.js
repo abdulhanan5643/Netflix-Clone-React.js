@@ -22,6 +22,12 @@ function Banner() {
             <div className="banner_content">
                 <h1>
                     {movie?.title || movie?.name || movie?.original_name}
+
+                    <div className="banner_buttons">
+                        <button className="banner_button">Play</button>
+                        <button className="banner_button">My List</button>
+                    </div>
+
                 </h1>
             </div>
         </header>
