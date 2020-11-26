@@ -8,6 +8,7 @@ const base_url = "https://image.tmdb.org/t/p/original/";
 function Row({title, fetchUrl, isLargeRow}) {
 
     const [movies, setMovies] = useState([]);
+    const [trailerUrl, setTrailerUrl]=useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -27,16 +28,27 @@ function Row({title, fetchUrl, isLargeRow}) {
         },
     };
 
+    const handleClick= (movie)=>{
+        if (trailerUrl){
+            setTrailerUrl("");
+        }else {
+            movieTrailer(movie?.name || "").then((url)=>{
+                const urlPrams=new URLSearchParams(new URL(url).search);
+                setTrailerUrl(urlPrams.get('v'));
+            })
+        }
+    }
+
     return (
         <div className="row">
             <h2>{title}</h2>
 
             <div className="row_posters">
                 {movies.map(movie => (
-                    <img className={`row_poster ${isLargeRow && "row_posterLarge"}`} key={movie.id} src={`${base_url}${isLargeRow ? movie.poster_path: movie.backdrop_path}`} alt={movie.name}/>
+                    <img className={`row_poster ${isLargeRow && "row_posterLarge"}`} onClick={()=>handleClick(movie)} key={movie.id} src={`${base_url}${isLargeRow ? movie.poster_path: movie.backdrop_path}`} alt={movie.name}/>
                 ))}
             </div>
-            <YouTube videoId={} opts={opts} />
+            {trailerUrl && <YouTube videoId={trailerUrl} opts={opts}/>}
         </div>
     )
 }
