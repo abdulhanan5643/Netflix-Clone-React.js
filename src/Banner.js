@@ -21,7 +21,7 @@ function Banner() {
             backgroundImage:`url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
             backgroundPosition:"center center",}}>
             <div className="banner_content">
-                <h1>
+                <h1 className="banner_title">
                     {movie?.title || movie?.name || movie?.original_name}
 
                     <div className="banner_buttons">
