@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "./axios";
 import "./Row.css";
+import YouTube from "react-youtube";
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
@@ -18,6 +19,13 @@ function Row({title, fetchUrl, isLargeRow}) {
         fetchData();
     }, [fetchUrl]);
 
+    const opts={
+        height: "390",
+        width:"100%",
+        playerVars:{
+            autoplay:1,
+        },
+    };
 
     return (
         <div className="row">
@@ -28,6 +36,7 @@ function Row({title, fetchUrl, isLargeRow}) {
                     <img className={`row_poster ${isLargeRow && "row_posterLarge"}`} key={movie.id} src={`${base_url}${isLargeRow ? movie.poster_path: movie.backdrop_path}`} alt={movie.name}/>
                 ))}
             </div>
+            <YouTube videoId={} opts={opts} />
         </div>
     )
 }
